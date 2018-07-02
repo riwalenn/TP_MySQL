@@ -1,0 +1,86 @@
+SELECTION DES ANIMAUX N'AYANT PAS "PELAGE", "ROBE" ET "COULEUR" DANS LA DESCRIPTION :
+-------------
+SELECT a.`nom`, r.nom AS race, r.description 
+FROM `animal` AS a  
+RIGHT JOIN race AS r 
+ON a.race_id = r.id 
+WHERE r.description NOT LIKE '%pelage%'
+AND r.description NOT LIKE '%couleur%'
+AND r.description NOT LIKE '%robe%'
+
+====================================
+LISTE DES CHIENS DIT DE "BERGER"
+-------------
+SELECT Race.nom AS Race 
+FROM Race
+INNER JOIN Espece ON Espece.id = Race.espece_id
+WHERE Espece.nom_courant = 'chien' AND Race.nom LIKE '%berger%';
+
+===================================
+LISTE DES CHATS ET PERROQUETS AVEC LEURS SEXE, ESPECE ET RACE. REGROUPER LES CHATS ENSEMBLE, LES PERROQUETS ENSEMBLE ET LES ESPECES ET RACES ENSEMBLE.
+-------------
+SELECT Animal.nom as nom_animal, Animal.sexe, Espece.nom_latin as espece, Race.nom as race
+FROM Animal
+INNER JOIN Espece
+    ON Animal.espece_id = Espece.id
+LEFT JOIN Race
+    ON Animal.race_id = Race.id
+WHERE Espece.nom_courant IN ('Perroquet amazone', 'Chat')
+ORDER BY Espece.nom_latin, Race.nom;
+
+===================================
+LISTE DES CHIENNES NEES AVANT JUILLET 2010 DONT ON CONNAIT LA RACE (AFFICHER : NOM, DATE DE NAISSANCE, RACE)
+--------------
+SELECT animal.nom, animal.date_naissance, race.nom AS nom_race 
+FROM `animal` 
+JOIN espece
+on animal.espece_id = espece.id
+JOIN race
+ON animal.race_id = race.id
+WHERE animal.sexe LIKE 'F'
+AND espece.nom_courant LIKE 'Chien'
+AND animal.race_id IS NOT NULL
+AND animal.date_naissance < '2010-07'
+
+===================================
+LISTE DES CHATS DONT ON CONNAIT LES PARENTS (DONNER LE NOM DES PARENTS)
+-------------
+SELECT animal.nom, mere.nom as maman, pere.nom as papa
+FROM animal
+INNER JOIN animal AS mere
+ON animal.mere_id = mere.id
+INNER JOIN animal as pere
+ON animal.pere_id = pere.id
+left join espece
+ON animal.espece_id = espece.id
+WHERE espece.nom_courant LIKE 'chat'
+
+===================================
+LISTE DES DESCENDANTS DE BOULI
+------------
+SELECT animal.nom, animal.sexe, animal.date_naissance
+FROM animal
+JOIN animal as pere
+ON animal.pere_id = pere.id
+WHERE pere.nom LIKE 'Bouli'
+
+=================================
+LISTE DES ANIMAUX DONT ON CONNAIT LE PERE, LA MERE, LA RACE, LA RACE DU PERE, LA RACE DE LA MERE.
+AFFICHER LE NOM, L'ESPECE ET LA RACE DE L'ANIMAL AINSI QUE CEUX DE SES PARENTS (NOM & RACE)
+------------
+SELECT Espece.nom_courant AS espece, Animal.nom AS nom_animal, Race.nom AS race_animal,
+    Pere.nom AS papa, Race_pere.nom AS race_papa,
+    Mere.nom AS maman, Race_mere.nom AS race_maman
+FROM Animal
+INNER JOIN Espece
+    ON Animal.espece_id = Espece.id
+INNER JOIN Race
+    ON Animal.race_id = Race.id
+INNER JOIN Animal AS Pere
+    ON Animal.pere_id = Pere.id
+INNER JOIN Race AS Race_pere
+    ON Pere.race_id = Race_pere.id
+INNER JOIN Animal AS Mere
+    ON Animal.mere_id = Mere.id
+INNER JOIN Race AS Race_mere
+    ON Mere.race_id = Race_mere.id;
