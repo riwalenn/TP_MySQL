@@ -2,9 +2,9 @@
 
 Travaux pratiques sur MySQL avec OpenClassroom :
 		# Exercices
-		# Activité 1 : Créer la base de données d’un site de blog basique
-		# Activité 2 : Ecrire les requêtes permettant de sélectionner les données pour les différentes pages du blog. Il manque donc une requête pour chaque page (on a déjà la sélection des commentaires pour la page article)
-		# Activité 3 : Améliorer la base de données, en y ajoutant une série d’objets et de comportements.
+		# Activité_partie 2 : Créer la base de données d’un site de blog basique
+		# Activité_partie 4 : Ecrire les requêtes permettant de sélectionner les données pour les différentes pages du blog. Il manque donc une requête pour chaque page (on a déjà la sélection des commentaires pour la page article)
+		# Activité_partie 6 : Améliorer la base de données, en y ajoutant une série d’objets et de comportements.
 
 ## Built With
 
